@@ -50,4 +50,20 @@ abstract class Repository
 
         return $query->rowCount() === 1;
     }
+
+    public function update($model)
+    {
+        $sql = "UPDATE {$this->table} SET ";
+        $updaters = [];
+        foreach(array_keys($model->attributes) as $key) {
+            if($key !== 'id') {
+                $updaters[] = "$key = :$key";
+            }
+        }
+        $sql .= implode(', ', $updaters);
+        $sql .= ' WHERE id = :id';
+
+        $query = $this->conn->prepare($sql);
+        $query->execute($model->attributes);
+    }
 }
