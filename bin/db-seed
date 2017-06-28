@@ -1,0 +1,3 @@
+#!/bin/sh
+
+mysql -u my_app my_app < data/schema.sql
