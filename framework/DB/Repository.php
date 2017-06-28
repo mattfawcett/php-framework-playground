@@ -16,7 +16,7 @@ abstract class Repository
      */
     public function find($id)
     {
-        $query = $this->conn->prepare("select * from {$this->table} where id = :id");
+        $query = $this->conn->prepare("SELECT * FROM {$this->table} WHERE id = :id");
         $query->execute(['id' => $id]);
         $attributes = $query->fetch();
         if($attributes) {
@@ -26,7 +26,7 @@ abstract class Repository
 
     public function all()
     {
-        $query = $this->conn->query("select * from {$this->table}");
+        $query = $this->conn->query("SELECT * FROM {$this->table}");
         $models = [];
         while ($row = $query->fetch())
         {
