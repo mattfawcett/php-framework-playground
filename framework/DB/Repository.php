@@ -37,4 +37,17 @@ abstract class Repository
         }
         return $models;
     }
+
+    /**
+     * Delete a object with a given row from the database
+     * @param number $id - The id of the model to remove
+     * @return boolean - Returns true if a row was removed
+     */
+    public function remove($id) : bool
+    {
+        $query = $this->conn->prepare("DELETE FROM {$this->table} WHERE id = :id");
+        $deletion = $query->execute(['id' => $id]);
+
+        return $query->rowCount() === 1;
+    }
 }

@@ -55,4 +55,20 @@ class RepositoryTest extends TestCase
         $this->assertInstanceOf(User::class, $users[0]);
         $this->assertEquals(1, $users[0]->attributes['id']);
     }
+
+    public function test_remove_whenRecordExists()
+    {
+        $this->assertTrue($this->repo->remove(1));
+
+        $users = $this->repo->all();
+        $this->assertEquals(2, count($users));
+    }
+
+    public function test_remove_whenRecordDoesNotExist()
+    {
+        $this->assertFalse($this->repo->remove(0));
+
+        $users = $this->repo->all();
+        $this->assertEquals(3, count($users));
+    }
 }
