@@ -22,10 +22,15 @@ class User extends Model
 
 class RepositoryTest extends TestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->repo = new UserRepository($this->conn);
+    }
+
     public function test_find_forExistingRecord()
     {
-        $repo = new UserRepository($this->conn);
-        $user = $repo->find(1);
+        $user = $this->repo->find(1);
 
         $this->assertInstanceOf(User::class, $user);
 
@@ -33,5 +38,12 @@ class RepositoryTest extends TestCase
         $this->assertEquals('John', $user->attributes['first_name']);
         $this->assertEquals('Smith', $user->attributes['last_name']);
         $this->assertEquals('user1@example.com', $user->attributes['email']);
+    }
+
+    public function test_find_forNonExistingRecord()
+    {
+        $user = $this->repo->find(0);
+
+        $this->assertNull($user);
     }
 }

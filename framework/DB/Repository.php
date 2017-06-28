@@ -8,11 +8,19 @@ abstract class Repository
         $this->conn = $conn;
     }
 
+    /**
+     * Lookup a model within the collection using it's id
+     *
+     * @param number $id
+     * @return Framework\DB\Model|void
+     */
     public function find($id)
     {
         $query = $this->conn->prepare("select * from {$this->table} where id = :id");
         $query->execute(['id' => $id]);
         $attributes = $query->fetch();
-        return $this->modelClass::build($attributes);
+        if($attributes) {
+            return $this->modelClass::build($attributes);
+        }
     }
 }
