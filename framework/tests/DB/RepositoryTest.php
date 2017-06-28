@@ -24,7 +24,7 @@ class RepositoryTest extends TestCase
 {
     public function test_find_forExistingRecord()
     {
-        $repo = $this->container->get(UserRepository::class);
+        $repo = new UserRepository($this->conn);
         $user = $repo->find(1);
 
         $this->assertInstanceOf(User::class, $user);
