@@ -10,6 +10,8 @@ abstract class TestCase extends BaseTestCase
     {
         parent::setUp();
         $this->configureDatabaseConnection();
+        $this->resetDatabase();
+        $this->resetDatabase();
     }
 
     protected function configureDatabaseConnection()
@@ -27,5 +29,15 @@ abstract class TestCase extends BaseTestCase
             PDO::ATTR_EMULATE_PREPARES   => false,
         ];
         $this->conn = new PDO($dsn, $user, $pass, $opt);
+    }
+
+    /**
+     * Reset the database to a known state for testing purposes. Ordinarily
+     * transactions/fixtures/factories/migrations would be used for this kind of
+     * thing. But for the purposes of this demo, just simply import an sql file.
+     */
+    protected function resetDatabase()
+    {
+        shell_exec('bin/db-seed');
     }
 }
