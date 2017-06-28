@@ -46,4 +46,13 @@ class RepositoryTest extends TestCase
 
         $this->assertNull($user);
     }
+
+    public function test_all()
+    {
+        $users = $this->repo->all();
+        $this->assertEquals(3, count($users));
+
+        $this->assertInstanceOf(User::class, $users[0]);
+        $this->assertEquals(1, $users[0]->attributes['id']);
+    }
 }

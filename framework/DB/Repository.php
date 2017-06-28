@@ -23,4 +23,15 @@ abstract class Repository
             return $this->modelClass::build($attributes);
         }
     }
+
+    public function all()
+    {
+        $query = $this->conn->query("select * from {$this->table}");
+        $models = [];
+        while ($row = $query->fetch())
+        {
+            $models[] = $this->modelClass::build($row);
+        }
+        return $models;
+    }
 }
