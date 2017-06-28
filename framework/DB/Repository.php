@@ -46,7 +46,7 @@ abstract class Repository
     public function remove($id) : bool
     {
         $query = $this->conn->prepare("DELETE FROM {$this->table} WHERE id = :id");
-        $deletion = $query->execute(['id' => $id]);
+        $query->execute(['id' => $id]);
 
         return $query->rowCount() === 1;
     }
