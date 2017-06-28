@@ -9,7 +9,7 @@ abstract class Repository
     }
 
     /**
-     * Lookup a model within the collection using it's id
+     * Lookup a model within the collection using its id
      *
      * @param number $id
      * @return Framework\DB\Model|void
@@ -24,7 +24,10 @@ abstract class Repository
         }
     }
 
-    public function all()
+    /**
+     * Retrieve all models from the database
+     */
+    public function all() : array
     {
         $query = $this->conn->query("SELECT * FROM {$this->table}");
         $models = [];
