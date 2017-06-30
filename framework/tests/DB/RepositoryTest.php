@@ -77,7 +77,8 @@ class RepositoryTest extends TestCase
         $user = $this->repo->find(1);
         $user->attributes['email'] = 'updated@example.com';
 
-        $this->repo->update($user);
+        $updatedModel = $this->repo->update($user);
+        $this->assertEquals($updatedModel, $user);
 
         $user = $this->repo->find(1);
         $this->assertEquals('updated@example.com', $user->attributes['email']);

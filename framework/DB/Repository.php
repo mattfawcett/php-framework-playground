@@ -65,6 +65,8 @@ abstract class Repository
 
         $query = $this->conn->prepare($sql);
         $query->execute($model->attributes);
+
+        return $model;
     }
 
     /**
