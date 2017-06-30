@@ -13,7 +13,18 @@ interface ModelInterface
     public function getId();
 
     /**
-     * Update the attributes of this model. Should handle sanitation
+     * Update attributes of this model.
+     *
+     * Attributes passed to this function should be considered unsafe, so should
+     * be sanitized before being used.
+     *
      */
     public function fill(array $unsafeAttributes);
+
+    /**
+     * Update attributes of this model.
+     *
+     * Attributes passed to this function should be safe.
+     */
+    public function forceFill(array $attributes);
 }

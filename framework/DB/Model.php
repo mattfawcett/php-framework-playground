@@ -34,14 +34,24 @@ abstract class Model implements ModelInterface
         return $this->attributes;
     }
 
+    /**
+     * Get a single attribute of this model.
+     * 
+     * Dynamic getter functions can also be used. so the 2 following calls are equal
+     *
+     *   $model->getAttribute('first_name')
+     *   $model->getFirstName()
+     */
     public function getAttribute($key)
     {
         return $this->attributes[$key] ?? null;
     }
 
     /**
-     * Update the attributes of this model. Only attributes whitelisted in the
+     * Update attributes of this model. Only attributes whitelisted in the
      * $fillable array will be updated.
+     *
+     * Any attributes not specified in the array passed in will not be touched
      */
     public function fill(array $unsafeAttributes)
     {
@@ -52,6 +62,10 @@ abstract class Model implements ModelInterface
         $this->forceFill($safeAttributes);
     }
 
+    /**
+     * Update attributes of this model. This should only be called when it can
+     * be guarenteed that the $attributes are safe.
+     */
     public function forceFill(array $attributes)
     {
         $this->attributes = array_merge($this->attributes, $attributes);
@@ -64,6 +78,11 @@ abstract class Model implements ModelInterface
         return $model;
     }
 
+    /**
+     * Adds dynamic attribute getter functions
+     *
+     * $model->getAttribute('first_name') equals $model->getFirstName()
+     */
     public function __call($method, $arguments)
     {
         if (strncasecmp($method, "get", 3) == 0) {
