@@ -53,7 +53,7 @@ class RepositoryTest extends TestCase
         $this->assertEquals(3, count($users));
 
         $this->assertInstanceOf(User::class, $users[0]);
-        $this->assertEquals(1, $users[0]->attributes['id']);
+        $this->assertEquals(1, $users[0]->getId());
     }
 
     public function test_remove_whenRecordExists()
@@ -93,8 +93,8 @@ class RepositoryTest extends TestCase
 
         $savedModel = $this->repo->create($user);
 
-        $user = $this->repo->find($savedModel->attributes['id']);
-        $this->assertEquals($savedModel->attributes['id'], $user->attributes['id']);
+        $user = $this->repo->find($savedModel->getId());
+        $this->assertEquals($savedModel->getId(), $user->getId());
         $this->assertEquals('sam.peters@example.com', $user->attributes['email']);
     }
 }
