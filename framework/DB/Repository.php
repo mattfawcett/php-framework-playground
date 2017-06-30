@@ -75,7 +75,8 @@ abstract class Repository
     }
 
     /**
-     * Add an object to the repository, returns the row with the id attribute.
+     * Add an object to the repository, returns the model with the id attribute
+     * now set on it.
      */
     public function create(ModelInterface $model) : ModelInterface
     {
