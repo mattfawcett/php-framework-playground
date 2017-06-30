@@ -66,4 +66,20 @@ abstract class Repository
         $query = $this->conn->prepare($sql);
         $query->execute($model->attributes);
     }
+
+    public function create($model)
+    {
+        $columnNames = implode(array_keys($model->attributes), ' ,');
+        $symbolizedColumnNames = array_map(function($key) {
+            return ':' . $key;
+        }, array_keys($model->attributes));
+
+        $valueNames = implode($symbolizedColumnNames, ' ,');
+
+        $sql = "INSERT INTO {$this->table} ($columnNames) VALUES ($valueNames)";
+        $query = $this->conn->prepare($sql);
+        $query->execute($model->attributes);
+
+        return $this->conn->lastInsertId();
+    }
 }

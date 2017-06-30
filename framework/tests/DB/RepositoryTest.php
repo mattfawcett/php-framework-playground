@@ -82,4 +82,19 @@ class RepositoryTest extends TestCase
         $user = $this->repo->find(1);
         $this->assertEquals('updated@example.com', $user->attributes['email']);
     }
+
+    public function test_create()
+    {
+        $user = User::build([
+            'first_name' => 'Samual',
+            'last_name' => 'Peters',
+            'email' => 'sam.peters@example.com'
+        ]);
+
+        $id = $this->repo->create($user);
+
+        $user = $this->repo->find($id);
+        $this->assertEquals($id, $user->attributes['id']);
+        $this->assertEquals('sam.peters@example.com', $user->attributes['email']);
+    }
 }
