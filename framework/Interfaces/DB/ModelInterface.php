@@ -11,4 +11,9 @@ interface ModelInterface
      * @return null|int
      */
     public function getId();
+
+    /**
+     * Update the attributes of this model. Should handle sanitation
+     */
+    public function fill(array $unsafeAttributes);
 }
