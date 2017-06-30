@@ -1,7 +1,9 @@
 <?php
 namespace Framework\DB;
 
-abstract class Model
+use Framework\Interfaces\DB\ModelInterface;
+
+abstract class Model implements ModelInterface
 {
     public $attributes = [];
 

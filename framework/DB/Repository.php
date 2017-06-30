@@ -1,6 +1,8 @@
 <?php
 namespace Framework\DB;
 
+use Framework\Interfaces\DB\ModelInterface;
+
 abstract class Repository
 {
     public function __construct(\PDO $conn)
@@ -12,7 +14,7 @@ abstract class Repository
      * Lookup a model within the collection using its id
      *
      * @param number $id
-     * @return Framework\DB\Model|void
+     * @return Framework\Interfaces\DB\ModelInterface|void
      */
     public function find($id)
     {
@@ -51,7 +53,10 @@ abstract class Repository
         return $query->rowCount() === 1;
     }
 
-    public function update($model)
+    /**
+     * Update a model in the databse
+     */
+    public function update(ModelInterface $model) : ModelInterface
     {
         $sql = "UPDATE {$this->table} SET ";
         $updaters = [];
@@ -72,7 +77,7 @@ abstract class Repository
     /**
      * Add an object to the repository, returns the row with the id attribute.
      */
-    public function create($model)
+    public function create(ModelInterface $model) : ModelInterface
     {
         $columnNames = implode(array_keys($model->attributes), ' ,');
         $symbolizedColumnNames = array_map(function($key) {
