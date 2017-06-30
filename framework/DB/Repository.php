@@ -67,6 +67,9 @@ abstract class Repository
         $query->execute($model->attributes);
     }
 
+    /**
+     * Add an object to the repository, returns the row with the id attribute.
+     */
     public function create($model)
     {
         $columnNames = implode(array_keys($model->attributes), ' ,');
@@ -80,6 +83,7 @@ abstract class Repository
         $query = $this->conn->prepare($sql);
         $query->execute($model->attributes);
 
-        return $this->conn->lastInsertId();
+        $model->attributes['id'] = $this->conn->lastInsertId();
+        return $model;
     }
 }

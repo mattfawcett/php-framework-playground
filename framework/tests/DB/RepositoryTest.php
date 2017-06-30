@@ -91,10 +91,10 @@ class RepositoryTest extends TestCase
             'email' => 'sam.peters@example.com'
         ]);
 
-        $id = $this->repo->create($user);
+        $savedModel = $this->repo->create($user);
 
-        $user = $this->repo->find($id);
-        $this->assertEquals($id, $user->attributes['id']);
+        $user = $this->repo->find($savedModel->attributes['id']);
+        $this->assertEquals($savedModel->attributes['id'], $user->attributes['id']);
         $this->assertEquals('sam.peters@example.com', $user->attributes['email']);
     }
 }
