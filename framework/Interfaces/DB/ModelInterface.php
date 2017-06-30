@@ -17,7 +17,6 @@ interface ModelInterface
      *
      * Attributes passed to this function should be considered unsafe, so should
      * be sanitized before being used.
-     *
      */
     public function fill(array $unsafeAttributes);
 
