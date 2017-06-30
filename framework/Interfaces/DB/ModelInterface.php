@@ -26,4 +26,11 @@ interface ModelInterface
      * Attributes passed to this function should be safe.
      */
     public function forceFill(array $attributes);
+
+    /**
+     * Create a new instance of an object based on an attributes array.
+     *
+     * This is used by repositories to build objects from database data
+     */
+    public static function build(array $attributes) : ModelInterface;
 }

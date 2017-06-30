@@ -71,7 +71,7 @@ abstract class Model implements ModelInterface
         $this->attributes = array_merge($this->attributes, $attributes);
     }
 
-    public static function build(array $attributes)
+    public static function build(array $attributes) : ModelInterface
     {
         $model = new static;
         $model->attributes = $attributes;
