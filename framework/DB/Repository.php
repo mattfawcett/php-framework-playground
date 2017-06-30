@@ -60,7 +60,7 @@ abstract class Repository
     {
         $sql = "UPDATE {$this->table} SET ";
         $updaters = [];
-        foreach(array_keys($model->attributes) as $key) {
+        foreach(array_keys($model->getAttributes()) as $key) {
             if($key !== 'id') {
                 $updaters[] = "$key = :$key";
             }
@@ -69,7 +69,9 @@ abstract class Repository
         $sql .= ' WHERE id = :id';
 
         $query = $this->conn->prepare($sql);
-        $query->execute($model->attributes);
+        $bindings = $model->getAttributes();
+        $bindings['id'] = $model->getId();
+        $query->execute($bindings);
 
         return $model;
     }
@@ -80,18 +82,18 @@ abstract class Repository
      */
     public function create(ModelInterface $model) : ModelInterface
     {
-        $columnNames = implode(array_keys($model->attributes), ' ,');
+        $columnNames = implode(array_keys($model->getAttributes()), ' ,');
         $symbolizedColumnNames = array_map(function($key) {
             return ':' . $key;
-        }, array_keys($model->attributes));
+        }, array_keys($model->getAttributes()));
 
         $valueNames = implode($symbolizedColumnNames, ' ,');
 
         $sql = "INSERT INTO {$this->table} ($columnNames) VALUES ($valueNames)";
         $query = $this->conn->prepare($sql);
-        $query->execute($model->attributes);
+        $query->execute($model->getAttributes());
 
-        $model->attributes['id'] = $this->conn->lastInsertId();
+        $model->forceFill(['id' => $this->conn->lastInsertId()]);
         return $model;
     }
 }

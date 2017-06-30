@@ -32,8 +32,18 @@ class ModelTest extends TestCase
             'last_name' => 'Bell'
         ]);
 
-        $this->assertEquals(1, $user->attributes['id']);
-        $this->assertEquals('Mike', $user->attributes['first_name']);
-        $this->assertEquals('Smith', $user->attributes['last_name']);
+        $this->assertEquals(1, $user->getId());
+        $this->assertEquals('Mike', $user->getFirstName());
+        $this->assertEquals('Smith', $user->getLastName());
+    }
+
+    /**
+     * @expectedException PHPUnit\Framework\Error\Error
+     */
+    public function test_dynamicGettersInvalid()
+    {
+        $user = UserWithFillable::build([]);
+
+        $user->getNonExistantAttribute();
     }
 }

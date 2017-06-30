@@ -34,10 +34,10 @@ class RepositoryTest extends TestCase
 
         $this->assertInstanceOf(User::class, $user);
 
-        $this->assertEquals(1, $user->attributes['id']);
-        $this->assertEquals('John', $user->attributes['first_name']);
-        $this->assertEquals('Smith', $user->attributes['last_name']);
-        $this->assertEquals('user1@example.com', $user->attributes['email']);
+        $this->assertEquals(1, $user->getAttribute('id'));
+        $this->assertEquals('John', $user->getAttribute('first_name'));
+        $this->assertEquals('Smith', $user->getAttribute('last_name'));
+        $this->assertEquals('user1@example.com', $user->getAttribute('email'));
     }
 
     public function test_find_forNonExistingRecord()
@@ -75,13 +75,13 @@ class RepositoryTest extends TestCase
     public function test_update()
     {
         $user = $this->repo->find(1);
-        $user->attributes['email'] = 'updated@example.com';
+        $user->forceFill(['email' => 'updated@example.com']);
 
         $updatedModel = $this->repo->update($user);
         $this->assertEquals($updatedModel, $user);
 
         $user = $this->repo->find(1);
-        $this->assertEquals('updated@example.com', $user->attributes['email']);
+        $this->assertEquals('updated@example.com', $user->getAttribute('email'));
     }
 
     public function test_create()
@@ -96,6 +96,6 @@ class RepositoryTest extends TestCase
 
         $user = $this->repo->find($savedModel->getId());
         $this->assertEquals($savedModel->getId(), $user->getId());
-        $this->assertEquals('sam.peters@example.com', $user->attributes['email']);
+        $this->assertEquals('sam.peters@example.com', $user->getAttribute('email'));
     }
 }
