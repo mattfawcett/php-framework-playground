@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Configuration options for dependency injection
+ */
+
 use function DI\object;
 
 return [

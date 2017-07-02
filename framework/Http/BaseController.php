@@ -1,7 +1,11 @@
 <?php
 namespace Framework\Http;
 
-class BaseController
+/**
+ * An Base Class for controller to inherit from. Provides useful helper
+ * functions for building up Framework\Http\Response objects.
+ */
+abstract class BaseController
 {
     protected function jsonResponse($object, $statusCode = 200) : Response
     {

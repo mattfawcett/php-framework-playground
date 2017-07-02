@@ -7,6 +7,10 @@ use Framework\Http\BaseController;
 use Framework\Http\Response;
 use Framework\Http\Request;
 
+/**
+ * A controller for handling CRUD operations on users. All responses are
+ * returned as Json
+ */
 class UsersController extends BaseController
 {
     protected $repo;
@@ -16,18 +20,34 @@ class UsersController extends BaseController
         $this->repo = $repo;
     }
 
+    /**
+     * List all users
+     * GET /users
+     */
     public function index() : Response
     {
         $users = $this->repo->all();
         return $this->jsonResponse($users);
     }
 
+    /**
+     * Show a single user
+     * GET /users/:id
+     *
+     * @param int $id The id of the user in the database
+     */
     public function show($id) : Response
     {
         $user = $this->repo->findOrFail($id);
         return $this->jsonResponse($user);
     }
 
+    /**
+     * Create a new user
+     * POST /users
+     *
+     * @param Framework\Http\Request object containing the post parameters
+     */
     public function store(Request $request) : Response
     {
         $user = new User;
@@ -42,6 +62,13 @@ class UsersController extends BaseController
         }
     }
 
+    /**
+     * Update an existing user
+     * PATCH /users/:id
+     *
+     * @param int $id The id of the user in the database
+     * @param Framework\Http\Request object containing the patch parameters
+     */
     public function update($id, Request $request) : Response
     {
         $user = $this->repo->findOrFail($id);
@@ -56,6 +83,12 @@ class UsersController extends BaseController
         }
     }
 
+    /**
+     * Delete an existing user
+     * DELETE /users/:id
+     *
+     * @param int $id The id of the user in the database
+     */
     public function destroy($id) : Response
     {
         $this->repo->remove($id);

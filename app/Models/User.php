@@ -17,6 +17,9 @@ class User extends Model implements JsonSerializable
         'hashed_password' => null,
     ];
 
+    /**
+     * Which attributes are safe to fill via mass assignment
+     */
     public $fillable = [
         'first_name',
         'last_name',

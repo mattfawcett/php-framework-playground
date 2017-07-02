@@ -2,6 +2,10 @@
 
 namespace Framework\Interfaces\DB;
 
+/**
+ * An interface that models should implement. This ensures that repositories
+ * will be able to use them.
+ */
 interface ModelInterface
 {
     /**

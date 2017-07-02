@@ -8,10 +8,19 @@ namespace Framework\Http;
  */
 class Response
 {
+    /**
+     * The HTTP status code
+     */
     public $statusCode = 200;
 
+    /**
+     * The body of the response, typically some HTML or JSON
+     */
     public $body;
 
+    /**
+     * HTTP response headers. For example Set-Cookie
+     */
     public $headers = [];
 
     /**
@@ -37,6 +46,9 @@ class Response
 
     /**
      * Set the HTTP status code
+     *
+     * @param int $statusCode
+     * @return void
      */
     public function setStatusCode(int $statusCode)
     {
@@ -45,6 +57,7 @@ class Response
 
     /**
      * Serve this HTTP response
+     *
      * @return void
      */
     public function serve()

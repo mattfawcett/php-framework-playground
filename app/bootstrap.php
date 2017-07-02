@@ -1,6 +1,6 @@
 <?php
 /**
- * The bootstrap file creates and returns the container.
+ * The bootstrap file creates and returns the dependency injection container.
  */
 use DI\ContainerBuilder;
 require __DIR__ . '/../vendor/autoload.php';

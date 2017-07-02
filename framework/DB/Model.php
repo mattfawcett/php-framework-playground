@@ -3,6 +3,10 @@ namespace Framework\DB;
 
 use Framework\Interfaces\DB\ModelInterface;
 
+/**
+ * A BaseClass that can be inherited from to represent a data entity.
+ * Models typically map to a database table.
+ */
 abstract class Model implements ModelInterface
 {
     /**
@@ -41,6 +45,8 @@ abstract class Model implements ModelInterface
      *
      *   $model->getAttribute('first_name')
      *   $model->getFirstName()
+     *
+     * @return mixed
      */
     public function getAttribute($key)
     {
@@ -52,6 +58,8 @@ abstract class Model implements ModelInterface
      * $fillable array will be updated.
      *
      * Any attributes not specified in the array passed in will not be touched
+     *
+     * @return void
      */
     public function fill(array $unsafeAttributes)
     {
@@ -65,12 +73,18 @@ abstract class Model implements ModelInterface
     /**
      * Update attributes of this model. This should only be called when it can
      * be guarenteed that the $attributes are safe.
+     *
+     * @return void
      */
     public function forceFill(array $attributes)
     {
         $this->attributes = array_merge($this->attributes, $attributes);
     }
 
+    /**
+     * Build a model instance using the attributes. This function is used by the
+     * Repository to build models.
+     */
     public static function build(array $attributes) : ModelInterface
     {
         $model = new static;
@@ -82,6 +96,8 @@ abstract class Model implements ModelInterface
      * Adds dynamic attribute getter functions
      *
      * $model->getAttribute('first_name') equals $model->getFirstName()
+     *
+     * @return mixed
      */
     public function __call($method, $arguments)
     {

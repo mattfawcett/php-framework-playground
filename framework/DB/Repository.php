@@ -1,12 +1,22 @@
 <?php
 namespace Framework\DB;
 
+use PDO;
 use Framework\Interfaces\DB\ModelInterface;
 use Framework\Exceptions\ModelNotFoundException;
 
+/**
+ * A Base Class that can be inherited from to provide a repository to handle
+ * retrieving and persisting models to and from the database.
+ */
 abstract class Repository
 {
-    public function __construct(\PDO $conn)
+    /**
+     * Initialize a new repository.
+     *
+     * @param PDO $conn is dependency injected in
+     */
+    public function __construct(PDO $conn)
     {
         $this->conn = $conn;
     }
@@ -28,8 +38,8 @@ abstract class Repository
     }
 
     /**
-     * Lookup a model within the collection using its id. Throws exception if n
-     * one found.
+     * Lookup a model within the collection using its id. Throws exception if
+     * one is not found.
      *
      * @param number $id
      * @return Framework\Interfaces\DB\ModelInterface
@@ -47,6 +57,8 @@ abstract class Repository
 
     /**
      * Retrieve all models from the database
+     *
+     * @return array
      */
     public function all() : array
     {
@@ -61,6 +73,7 @@ abstract class Repository
 
     /**
      * Delete a object with a given row from the database
+     *
      * @param number $id - The id of the model to remove
      * @return boolean - Returns true if a row was removed
      */
@@ -74,6 +87,9 @@ abstract class Repository
 
     /**
      * Update a model in the databse
+     *
+     * @param Framework\Interfaces\DB\ModelInterface
+     * @return Framework\Interfaces\DB\ModelInterface
      */
     public function update(ModelInterface $model) : ModelInterface
     {
@@ -98,6 +114,8 @@ abstract class Repository
     /**
      * Add an object to the repository, returns the model with the id attribute
      * now set on it.
+     *
+     * @return Framework\Interfaces\DB\ModelInterface
      */
     public function create(ModelInterface $model) : ModelInterface
     {

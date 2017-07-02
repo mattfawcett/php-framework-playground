@@ -8,7 +8,8 @@ use Framework\Exceptions\ModelNotFoundException;
 use Framework\Http\Response;
 
 /**
- * A class for handling a HTTP request
+ * The entrypoint into the application. Takes a HTTP request, dispatches it to a
+ * controller, and then serves up the response.
  */
 class RequestHandler
 {
@@ -25,6 +26,14 @@ class RequestHandler
         });
     }
 
+    /**
+     * Handle a HTTP request. There is no content returned from this function.
+     * It simply echos out the content along with sending headers.
+     *
+     * @param string $method The HTTP method for example GET, POST, PATCH, DELETE
+     * @param string $uri The path for example /users
+     * @return void
+     */
     public function handle($method, $uri)
     {
         $route = $this->dispatcher->dispatch($method, $uri);
@@ -49,6 +58,10 @@ class RequestHandler
         }
     }
 
+    /**
+     * Serve a 404 not found response
+     * @return void
+     */
     protected function serveNotFound()
     {
         $response = new Response(json_encode(['error' => 'Resource not found']));
@@ -57,6 +70,10 @@ class RequestHandler
         $response->serve();
     }
 
+    /**
+     * Serve a 405 method not allowed response
+     * @return void
+     */
     protected function serveNotAllowed()
     {
         $response = new Response(json_encode(['error' => 'Method not allowed']));
