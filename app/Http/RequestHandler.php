@@ -4,6 +4,8 @@ namespace App\Http;
 use FastRoute;
 use FastRoute\RouteCollector;
 use FastRoute\Dispatcher;
+use Framework\Exceptions\ModelNotFoundException;
+use Framework\Http\Response;
 
 /**
  * A class for handling a HTTP request
@@ -26,7 +28,7 @@ class RequestHandler
 
         switch ($route[0]) {
             case FastRoute\Dispatcher::NOT_FOUND:
-                echo '404 Not Found';
+                $this->serveNotFound();
                 break;
             case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
                 echo '405 Method Not Allowed';
@@ -34,9 +36,21 @@ class RequestHandler
             case FastRoute\Dispatcher::FOUND:
                 $controller = $route[1];
                 $parameters = $route[2];
-                $response = $this->container->call($controller, $parameters);
-                $response->serve();
+                try {
+                    $response = $this->container->call($controller, $parameters);
+                    $response->serve();
+                } catch (ModelNotFoundException $e) {
+                    $this->serveNotFound();
+                }
                 break;
         }
+    }
+
+    protected function serveNotFound()
+    {
+        $response = new Response(json_encode(['error' => 'Resource not found']));
+        $response->setStatusCode(404);
+        $response->addHeader('Content-Type', 'application/json');
+        $response->serve();
     }
 }

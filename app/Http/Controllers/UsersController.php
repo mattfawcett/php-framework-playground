@@ -22,7 +22,7 @@ class UsersController extends BaseController
 
     public function show($id) : Response
     {
-        $user = $this->repo->find($id);
+        $user = $this->repo->findOrFail($id);
         return $this->jsonResponse($user);
     }
 }
