@@ -1,8 +1,10 @@
 <?php
 namespace App;
 
+use Mockery;
 use App\UserRepository;
 use App\Http\Controllers\UsersController;
+use Framework\Http\Request;
 use Framework\Http\Response;
 
 class UsersControllerTest extends TestCase
@@ -49,7 +51,22 @@ class UsersControllerTest extends TestCase
 
     public function test_store_valid()
     {
+        $request = Mockery::mock(Request::class);
+        $request->shouldReceive('all')->andReturn([
+            'first_name' => 'Matt',
+            'last_name' => 'Fawcett',
+            'email' => 'matt@example.com',
+            'password' => 'Password1',
+        ]);
 
+        $response = $this->controller->store($request);
+        $this->assertEquals(201, $response->statusCode);
+        $this->assertJsonResponse([
+            'id' => '4',
+            'first_name' => 'Matt',
+            'last_name' => 'Fawcett',
+            'email' => 'matt@example.com',
+        ], $response);
     }
 
     protected function assertJsonResponse($expectedData, Response $response)
