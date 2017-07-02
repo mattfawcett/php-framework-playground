@@ -16,8 +16,8 @@ class UserWithFillable extends Model
     ];
 
     protected $attributes = [
-        'first_name',
-        'last_name',
+        'first_name' => null,
+        'last_name' => null,
     ];
 }
 
@@ -40,6 +40,18 @@ class ModelTest extends TestCase
         $this->assertEquals(1, $user->getId());
         $this->assertEquals('Mike', $user->getFirstName());
         $this->assertEquals('Smith', $user->getLastName());
+    }
+
+    public function test_forceFillShouldMassAssignAllAtributes()
+    {
+        $user = new UserWithFillable;
+        $user->forceFill([
+            'id' => 1,
+            'last_name' => 'Bell'
+        ]);
+
+        $this->assertEquals(1, $user->getId());
+        $this->assertEquals('Bell', $user->getLastName());
     }
 
     /**
