@@ -36,7 +36,7 @@ class User extends Model implements JsonSerializable
     public function fill(array $attributes)
     {
         parent::fill($attributes);
-        if($attributes['password']) {
+        if(isset($attributes['password'])) {
             $this->attributes['hashed_password'] = password_hash($attributes['password'], PASSWORD_BCRYPT);
         }
     }
