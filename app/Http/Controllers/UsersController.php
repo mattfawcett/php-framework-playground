@@ -16,12 +16,12 @@ class UsersController extends BaseController
     public function index()
     {
         $users = $this->repo->all();
-        $this->jsonResponse($users);
+        return $this->jsonResponse($users);
     }
 
     public function show($id)
     {
         $user = $this->repo->find($id);
-        $this->jsonResponse($user);
+        return $this->jsonResponse($user);
     }
 }

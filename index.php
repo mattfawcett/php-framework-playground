@@ -28,6 +28,7 @@ switch ($route[0]) {
     case FastRoute\Dispatcher::FOUND:
         $controller = $route[1];
         $parameters = $route[2];
-        $container->call($controller, $parameters);
+        $response = $container->call($controller, $parameters);
+        $response->serve();
         break;
 }
