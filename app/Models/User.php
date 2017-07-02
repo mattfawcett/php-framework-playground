@@ -13,14 +13,14 @@ class User extends Model
         'first_name' => null,
         'last_name' => null,
         'email' => null,
-        'encrypted_password' => null,
+        'hashed_password' => null,
     ];
 
     public function fill(array $attributes)
     {
         parent::fill($attributes);
         if(isset($attributes['password'])) {
-            $this->attributes['encrypted_password'] = password_hash($attributes['password'], PASSWORD_BCRYPT);
+            $this->attributes['hashed_password'] = password_hash($attributes['password'], PASSWORD_BCRYPT);
         }
     }
 }
