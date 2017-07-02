@@ -34,7 +34,7 @@ class RequestHandler
                 $this->serveNotFound();
                 break;
             case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-                echo '405 Method Not Allowed';
+                $this->serveNotAllowed();
                 break;
             case FastRoute\Dispatcher::FOUND:
                 $controller = $route[1];
@@ -53,6 +53,14 @@ class RequestHandler
     {
         $response = new Response(json_encode(['error' => 'Resource not found']));
         $response->setStatusCode(404);
+        $response->addHeader('Content-Type', 'application/json');
+        $response->serve();
+    }
+
+    protected function serveNotAllowed()
+    {
+        $response = new Response(json_encode(['error' => 'Method not allowed']));
+        $response->setStatusCode(405);
         $response->addHeader('Content-Type', 'application/json');
         $response->serve();
     }
