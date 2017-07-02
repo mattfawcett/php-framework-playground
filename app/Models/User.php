@@ -2,9 +2,10 @@
 
 namespace App;
 
+use JsonSerializable;
 use Framework\DB\Model;
 
-class User extends Model
+class User extends Model implements JsonSerializable
 {
     /**
      * Default attributes for a new User
@@ -74,5 +75,17 @@ class User extends Model
     public function getErrors() : array
     {
         return $this->errors;
+    }
+
+    /**
+     * Get an array representation of the model that can be used for serializing
+     * to json. Should leave out any internal data.
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        $array = $this->getAttributes();
+        unset($array['hashed_password']);
+        return $array;
     }
 }

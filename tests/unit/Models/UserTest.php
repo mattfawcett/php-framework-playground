@@ -45,6 +45,23 @@ class UserTest extends TestCase
         $this->assertEquals(['Email is invalid'], $user->getErrors());
     }
 
+    public function test_toArray_shouldExposeAllAttributesExceptHashedPassword()
+    {
+        $user = new User;
+        $user->fill($this->validAttributes());
+
+        // make this user appear like a saved model
+        $user->forceFill(['id' => 10]);
+
+        $array = $user->toArray();
+        $this->assertEquals([
+            'first_name',
+            'last_name',
+            'email',
+            'id',
+        ], array_keys($array));
+    }
+
     protected function validAttributes($overrides = [])
     {
         return array_merge([

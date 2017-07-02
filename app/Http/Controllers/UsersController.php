@@ -16,6 +16,6 @@ class UsersController
     {
         $user = $this->repo->find($id);
         header('Content-Type: application/json');
-        echo json_encode($user->getAttributes());
+        echo json_encode($user);
     }
 }
