@@ -1,3 +1,57 @@
+PHP framework playground
+=========================
+
+A small PHP framework demo. The source code is split into 2 main pieces,
+framework and app. The framework is intended to be independent, and has its
+own test suite. The app folder is dependent on the framework and is an example
+of the framework in use.
+
+As this is intended to be an exercise in building a framework, I have limited the use of
+external libraries with the aim of implementing the logic within the framework.
+However in reality I would be more likely to use off the shelf components.
+To save some time, I did use an off the shelf routing library.
+
+The framework is intended to allow easily adding of additional entities without
+having to write lots of code; the basic SQL queries being handled by the
+framework and available to the app through inheritance.
+
+The framework follows the repository pattern, which I don't really have much
+experience with but would like to experiment with. The reason being that the
+tight coupling between business logic and database when following the
+ActiveRecord pattern can sometime make unit testing difficult and slow.
+
+The sample app is a simple rest API that allows crud operations on uses.
+
+Database
+--------
+
+As a very basic demo, for simplicity, the web app and test suite share a
+database. The schema and some seed data can be populated by running
+`./bin/db-seed`. The test suite runs this command before each test. Going
+forward a proper system of migrations will be needed.
+
+Running the tests
+-----------------
+
+The version of phpunit installed in the vagrant package is out of date and not
+compatible with this codebase. The tests can be run with:
+`vendor/phpunit/phpunit/phpunit` for now.
+
+Running the application
+-----------------------
+
+The vagrant image will run the application. `www.testbox.dev` should be pointed
+to the IP address accordingly.
+
+Status Codes
+------------
+
+* 200 - Success
+* 201 - User was created
+* 204 - No content - When user is deleted
+* 404 - User could not be found or route not found
+* 422 - Entity unprocessable - validation failure
+
 Examples
 --------
 
