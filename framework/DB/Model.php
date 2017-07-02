@@ -89,7 +89,7 @@ abstract class Model implements ModelInterface
             $camelCaseAttribute = substr($method, 3);
 
             $attribute = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $camelCaseAttribute));
-            if(isset($this->attributes[$attribute])) {
+            if(array_key_exists($attribute, $this->attributes)) {
                 return $this->attributes[$attribute];
             }
         }
