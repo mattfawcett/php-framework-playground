@@ -2,8 +2,9 @@
 namespace App\Http\Controllers;
 
 use App\UserRepository;
+use Framework\Http\BaseController;
 
-class UsersController
+class UsersController extends BaseController
 {
     protected $repo;
 
@@ -15,14 +16,12 @@ class UsersController
     public function index()
     {
         $users = $this->repo->all();
-        header('Content-Type: application/json');
-        echo json_encode($users);
+        $this->jsonResponse($users);
     }
 
     public function show($id)
     {
         $user = $this->repo->find($id);
-        header('Content-Type: application/json');
-        echo json_encode($user);
+        $this->jsonResponse($user);
     }
 }
