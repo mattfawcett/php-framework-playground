@@ -45,7 +45,7 @@ class UserTest extends TestCase
         $this->assertEquals(['Email is invalid'], $user->getErrors());
     }
 
-    public function test_toArray_shouldExposeAllAttributesExceptHashedPassword()
+    public function test_jsonSerialize_shouldExposeAllAttributesExceptHashedPassword()
     {
         $user = new User;
         $user->fill($this->validAttributes());
@@ -53,7 +53,7 @@ class UserTest extends TestCase
         // make this user appear like a saved model
         $user->forceFill(['id' => 10]);
 
-        $array = $user->toArray();
+        $array = $user->jsonSerialize();
         $this->assertEquals([
             'first_name',
             'last_name',
