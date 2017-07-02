@@ -7,16 +7,12 @@ use FastRoute\Dispatcher;
 
 $container = require_once(__DIR__ . '/app/bootstrap.php');
 
-$userRepository = $container->get(UserRepository::class);
-
-
 $dispatcher = FastRoute\simpleDispatcher(function (RouteCollector $r) {
     $r->addRoute('GET', '/users', [Http\Controllers\UsersController::class, 'index']);
     $r->addRoute('GET', '/users/{id}', [Http\Controllers\UsersController::class, 'show']);
 });
 
 $route = $dispatcher->dispatch($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
-
 
 switch ($route[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
