@@ -2,6 +2,7 @@
 namespace Framework\DB;
 
 use Framework\Interfaces\DB\ModelInterface;
+use Framework\Exceptions\ModelNotFoundException;
 
 abstract class Repository
 {
@@ -24,6 +25,24 @@ abstract class Repository
         if($attributes) {
             return $this->modelClass::build($attributes);
         }
+    }
+
+    /**
+     * Lookup a model within the collection using its id. Throws exception if n
+     * one found.
+     *
+     * @param number $id
+     * @return Framework\Interfaces\DB\ModelInterface
+     * @throws Framework\Exceptions\ModelNotFoundException
+     */
+    public function findOrFail($id)
+    {
+        $model = $this->find($id);
+        if(!$model) {
+            throw new ModelNotFoundException('Cound not find ' . $this->modelClass . ' with id of ' . $id);
+        }
+
+        return $model;
     }
 
     /**

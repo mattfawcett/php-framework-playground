@@ -52,6 +52,22 @@ class RepositoryTest extends TestCase
         $this->assertNull($user);
     }
 
+    public function test_findOrFail_forExistingRecord()
+    {
+        $user = $this->repo->findOrFail(1);
+
+        $this->assertInstanceOf(User::class, $user);
+    }
+
+    /**
+     * @expectedException Framework\Exceptions\ModelNotFoundException
+     */
+    public function test_findOrFail_forNonExistingRecord()
+    {
+        $this->repo->findOrFail(0);
+    }
+
+
     public function test_all()
     {
         $users = $this->repo->all();
