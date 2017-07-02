@@ -28,6 +28,10 @@ class User extends Model
      */
     protected $errors = [];
 
+    /**
+     * Populate the models attributes. Special handing for the password
+     * attribute, which is converted to a hashed_password for persistance.
+     */
     public function fill(array $attributes)
     {
         parent::fill($attributes);
@@ -63,6 +67,10 @@ class User extends Model
         return empty($this->errors);
     }
 
+    /**
+     * If isValid() return false, then the errors returned by this function can
+     * be used to explan what the issues are.
+     */
     public function getErrors() : array
     {
         return $this->errors;
