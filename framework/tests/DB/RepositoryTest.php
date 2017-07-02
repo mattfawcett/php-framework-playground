@@ -17,7 +17,12 @@ class UserRepository extends Repository
  */
 class User extends Model
 {
-
+    protected $attributes = [
+        'first_name' => null,
+        'last_name' => null,
+        'email' => null,
+        'hashed_password' => null,
+    ];
 }
 
 class RepositoryTest extends TestCase

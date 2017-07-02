@@ -14,6 +14,11 @@ class UserWithFillable extends Model
     public $fillable = [
         'first_name'
     ];
+
+    protected $attributes = [
+        'first_name',
+        'last_name',
+    ];
 }
 
 class ModelTest extends TestCase
