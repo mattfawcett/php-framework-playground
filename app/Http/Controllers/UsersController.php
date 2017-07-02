@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\UserRepository;
 use Framework\Http\BaseController;
+use Framework\Http\Response;
 
 class UsersController extends BaseController
 {
@@ -13,13 +14,13 @@ class UsersController extends BaseController
         $this->repo = $repo;
     }
 
-    public function index()
+    public function index() : Response
     {
         $users = $this->repo->all();
         return $this->jsonResponse($users);
     }
 
-    public function show($id)
+    public function show($id) : Response
     {
         $user = $this->repo->find($id);
         return $this->jsonResponse($user);
