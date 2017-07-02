@@ -12,6 +12,13 @@ class UsersController
         $this->repo = $repo;
     }
 
+    public function index()
+    {
+        $users = $this->repo->all();
+        header('Content-Type: application/json');
+        echo json_encode($users);
+    }
+
     public function show($id)
     {
         $user = $this->repo->find($id);
