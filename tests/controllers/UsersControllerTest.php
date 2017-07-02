@@ -69,6 +69,24 @@ class UsersControllerTest extends TestCase
         ], $response);
     }
 
+    public function test_store_invalid()
+    {
+        $request = Mockery::mock(Request::class);
+        $request->shouldReceive('all')->andReturn([
+            'last_name' => 'Fawcett',
+            'email' => 'matt@example.com',
+            'password' => 'Password1',
+        ]);
+
+        $response = $this->controller->store($request);
+        $this->assertEquals(422, $response->statusCode);
+        $this->assertJsonResponse([
+            'errors' => [
+                'First name is required',
+            ]
+        ], $response);
+    }
+
     protected function assertJsonResponse($expectedData, Response $response)
     {
         $this->assertEquals('application/json', $response->headers['Content-Type']);
