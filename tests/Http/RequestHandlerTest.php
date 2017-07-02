@@ -3,6 +3,15 @@
 use DI\ContainerBuilder;
 use App\Http\RequestHandler;
 
+/**
+ * Testing of RequestHandler which is the routing that glues the application.
+ * Because the output of this class is the sending of headers and echoing out of
+ * content, these tests are fairly slow and are only used to test the the router
+ * can invoke Controller actions and handle exceptions.
+ *
+ * Additions to these tests should be kept at a minimum and controllers tested
+ * independently in isolation.
+ */
 class RequestHandlerTest extends TestCase
 {
     public function setUp()
