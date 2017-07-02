@@ -120,6 +120,13 @@ class UsersControllerTest extends TestCase
         ], $response);
     }
 
+    public function test_destroy()
+    {
+        $response = $this->controller->destroy(1);
+        $this->assertEquals(204, $response->statusCode);
+        $this->assertJsonResponse([], $response);
+    }
+
     protected function assertJsonResponse($expectedData, Response $response)
     {
         $this->assertEquals('application/json', $response->headers['Content-Type']);

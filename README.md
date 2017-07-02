@@ -83,12 +83,25 @@ Success:
 
 Failed Validation
 
-       curl -i --request 'PATCH' --data 'last_name=' http://www.testbox.dev/users/1
-       HTTP/1.1 422
-       Server: nginx
-       Date: Sun, 02 Jul 2017 13:20:56 GMT
-       Content-Type: application/json
-       Transfer-Encoding: chunked
-       Connection: keep-alive
+        curl -i --request 'PATCH' --data 'last_name=' http://www.testbox.dev/users/1
+        HTTP/1.1 422
+        Server: nginx
+        Date: Sun, 02 Jul 2017 13:20:56 GMT
+        Content-Type: application/json
+        Transfer-Encoding: chunked
+        Connection: keep-alive
 
-       {"errors":["Last name is required"]}
+        {"errors":["Last name is required"]}
+
+### Delete User
+
+Make a DELETE request to /users/:id
+
+Will return 204 status code with an body as the resource no longer exists, there is nothing to serve.
+
+        curl -i --request 'DELETE'  http://www.testbox.dev/users/1
+        HTTP/1.1 204 No Content
+        Server: nginx
+        Date: Sun, 02 Jul 2017 13:27:00 GMT
+        Content-Type: application/json
+        Connection: keep-alive

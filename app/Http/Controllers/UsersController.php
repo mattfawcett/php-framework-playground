@@ -55,4 +55,10 @@ class UsersController extends BaseController
             ], 422);
         }
     }
+
+    public function destroy($id) : Response
+    {
+        $this->repo->remove($id);
+        return $this->jsonResponse([], 204);
+    }
 }
