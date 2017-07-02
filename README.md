@@ -51,7 +51,7 @@ Success:
 
 Failed Validation
 
-        curl -i -d 'first_name=matt&email=fake&password=123' http://www.testbox.dev/users 
+        curl -i -d 'first_name=matt&email=fake&password=123' http://www.testbox.dev/users
         HTTP/1.1 422
         Server: nginx
         Date: Sun, 02 Jul 2017 13:03:01 GMT
@@ -60,3 +60,35 @@ Failed Validation
         Connection: keep-alive
 
         {"errors":["Last name is required","Email is invalid"]}
+
+### Update User
+
+Make a PATCH request to /users/:id
+
+Will return 200 status if the user was updateted along with the JSON
+representation of the updated user. For failed validation, the 422 status code will be
+served, along with an errors object.
+
+Success:
+
+        curl -i --request 'PATCH' --data 'last_name=new' http://www.testbox.dev/users/1
+        HTTP/1.1 200 OK
+        Server: nginx
+        Date: Sun, 02 Jul 2017 13:19:44 GMT
+        Content-Type: application/json
+        Transfer-Encoding: chunked
+        Connection: keep-alive
+
+        {"id":1,"email":"user1@example.com","first_name":"John","last_name":"new"}
+
+Failed Validation
+
+       curl -i --request 'PATCH' --data 'last_name=' http://www.testbox.dev/users/1
+       HTTP/1.1 422
+       Server: nginx
+       Date: Sun, 02 Jul 2017 13:20:56 GMT
+       Content-Type: application/json
+       Transfer-Encoding: chunked
+       Connection: keep-alive
+
+       {"errors":["Last name is required"]}

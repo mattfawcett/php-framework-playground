@@ -62,7 +62,7 @@ class UsersControllerTest extends TestCase
         $response = $this->controller->store($request);
         $this->assertEquals(201, $response->statusCode);
         $this->assertJsonResponse([
-            'id' => '4',
+            'id' => 4,
             'first_name' => 'Matt',
             'last_name' => 'Fawcett',
             'email' => 'matt@example.com',
@@ -83,6 +83,39 @@ class UsersControllerTest extends TestCase
         $this->assertJsonResponse([
             'errors' => [
                 'First name is required',
+            ]
+        ], $response);
+    }
+
+    public function test_update_valid()
+    {
+        $request = Mockery::mock(Request::class);
+        $request->shouldReceive('all')->andReturn([
+            'email' => 'updated-valid@example.com',
+        ]);
+
+        $response = $this->controller->update(1, $request);
+        $this->assertEquals(200, $response->statusCode);
+        $this->assertJsonResponse([
+            'id' => 1,
+            'first_name' => 'John',
+            'last_name' => 'Smith',
+            'email' => 'updated-valid@example.com',
+        ], $response);
+    }
+
+    public function test_update_invalid()
+    {
+        $request = Mockery::mock(Request::class);
+        $request->shouldReceive('all')->andReturn([
+            'email' => 'updated-invalid',
+        ]);
+
+        $response = $this->controller->update(1, $request);
+        $this->assertEquals(422, $response->statusCode);
+        $this->assertJsonResponse([
+            'errors' => [
+                'Email is invalid',
             ]
         ], $response);
     }

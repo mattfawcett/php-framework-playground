@@ -20,6 +20,7 @@ class RequestHandler
             $r->addRoute('GET', '/users', [Controllers\UsersController::class, 'index']);
             $r->addRoute('GET', '/users/{id}', [Controllers\UsersController::class, 'show']);
             $r->addRoute('POST', '/users', [Controllers\UsersController::class, 'store']);
+            $r->addRoute('PATCH', '/users/{id}', [Controllers\UsersController::class, 'update']);
         });
     }
 

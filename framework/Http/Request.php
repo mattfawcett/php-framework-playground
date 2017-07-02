@@ -13,6 +13,9 @@ class Request
      */
     public function all() : array
     {
-        return $_POST;
+        $paramsString = file_get_contents('php://input');
+        $data = [];
+        parse_str($paramsString, $data);
+        return $data;
     }
 }

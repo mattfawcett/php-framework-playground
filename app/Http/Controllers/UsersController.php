@@ -41,4 +41,18 @@ class UsersController extends BaseController
             ], 422);
         }
     }
+
+    public function update($id, Request $request) : Response
+    {
+        $user = $this->repo->findOrFail($id);
+        $user->fill($request->all());
+        if($user->isValid()) {
+            $this->repo->update($user);
+            return $this->jsonResponse($user);
+        } else {
+            return $this->jsonResponse([
+                'errors' => $user->getErrors(),
+            ], 422);
+        }
+    }
 }
