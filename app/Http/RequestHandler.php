@@ -19,6 +19,7 @@ class RequestHandler
         $this->dispatcher = FastRoute\simpleDispatcher(function (RouteCollector $r) {
             $r->addRoute('GET', '/users', [Controllers\UsersController::class, 'index']);
             $r->addRoute('GET', '/users/{id}', [Controllers\UsersController::class, 'show']);
+            $r->addRoute('POST', '/users', [Controllers\UsersController::class, 'store']);
         });
     }
 

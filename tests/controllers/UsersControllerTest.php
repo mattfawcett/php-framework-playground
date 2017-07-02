@@ -47,6 +47,11 @@ class UsersControllerTest extends TestCase
         $this->assertJsonResponse($this->john, $response);
     }
 
+    public function test_store_valid()
+    {
+
+    }
+
     protected function assertJsonResponse($expectedData, Response $response)
     {
         $this->assertEquals('application/json', $response->headers['Content-Type']);
