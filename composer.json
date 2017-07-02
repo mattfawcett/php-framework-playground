@@ -1,6 +1,7 @@
 {
     "require": {
-        "php-di/php-di": "^5.4"
+        "php-di/php-di": "^5.4",
+        "nikic/fast-route": "^1.2"
     },
 
     "autoload": {
