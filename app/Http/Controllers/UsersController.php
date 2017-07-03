@@ -52,7 +52,7 @@ class UsersController extends BaseController
     {
         $user = new User;
         $user->fill($request->all());
-        if($user->isValid()) {
+        if ($user->isValid()) {
             $this->repo->create($user);
             return $this->jsonResponse($user, 201);
         } else {
@@ -73,7 +73,7 @@ class UsersController extends BaseController
     {
         $user = $this->repo->findOrFail($id);
         $user->fill($request->all());
-        if($user->isValid()) {
+        if ($user->isValid()) {
             $this->repo->update($user);
             return $this->jsonResponse($user);
         } else {

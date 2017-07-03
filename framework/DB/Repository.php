@@ -32,7 +32,7 @@ abstract class Repository
         $query = $this->conn->prepare("SELECT * FROM {$this->table} WHERE id = :id");
         $query->execute(['id' => $id]);
         $attributes = $query->fetch();
-        if($attributes) {
+        if ($attributes) {
             return $this->modelClass::build($attributes);
         }
     }
@@ -48,7 +48,7 @@ abstract class Repository
     public function findOrFail($id)
     {
         $model = $this->find($id);
-        if(!$model) {
+        if (!$model) {
             throw new ModelNotFoundException('Cound not find ' . $this->modelClass . ' with id of ' . $id);
         }
 
@@ -64,8 +64,7 @@ abstract class Repository
     {
         $query = $this->conn->query("SELECT * FROM {$this->table}");
         $models = [];
-        while ($row = $query->fetch())
-        {
+        while ($row = $query->fetch()) {
             $models[] = $this->modelClass::build($row);
         }
         return $models;
@@ -95,8 +94,8 @@ abstract class Repository
     {
         $sql = "UPDATE {$this->table} SET ";
         $updaters = [];
-        foreach(array_keys($model->getAttributes()) as $key) {
-            if($key !== 'id') {
+        foreach (array_keys($model->getAttributes()) as $key) {
+            if ($key !== 'id') {
                 $updaters[] = "$key = :$key";
             }
         }
@@ -120,7 +119,7 @@ abstract class Repository
     public function create(ModelInterface $model) : ModelInterface
     {
         $columnNames = implode(array_keys($model->getAttributes()), ' ,');
-        $symbolizedColumnNames = array_map(function($key) {
+        $symbolizedColumnNames = array_map(function ($key) {
             return ':' . $key;
         }, array_keys($model->getAttributes()));
 

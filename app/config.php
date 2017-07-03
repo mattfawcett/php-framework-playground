@@ -7,7 +7,7 @@
 use function DI\object;
 
 return [
-    PDO::class => function() {
+    PDO::class => function () {
         $host = '127.0.0.1';
         $db   = 'my_app';
         $user = 'my_app';

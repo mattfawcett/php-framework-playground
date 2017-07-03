@@ -38,7 +38,7 @@ class User extends Model implements JsonSerializable
     public function fill(array $attributes)
     {
         parent::fill($attributes);
-        if(isset($attributes['password'])) {
+        if (isset($attributes['password'])) {
             $this->attributes['hashed_password'] = password_hash($attributes['password'], PASSWORD_BCRYPT);
         }
     }
@@ -52,23 +52,23 @@ class User extends Model implements JsonSerializable
     {
         $this->errors = [];
 
-        if(!$this->attributes['first_name']) {
+        if (!$this->attributes['first_name']) {
             $this->errors[] = 'First name is required';
         }
 
-        if(!$this->attributes['last_name']) {
+        if (!$this->attributes['last_name']) {
             $this->errors[] = 'Last name is required';
         }
 
-        if($this->attributes['email']) {
-            if(strpos($this->attributes['email'], '@') === false) {
+        if ($this->attributes['email']) {
+            if (strpos($this->attributes['email'], '@') === false) {
                 $this->errors[] = 'Email is invalid';
             }
         } else {
             $this->errors[] = 'Email is required';
         }
 
-        if(!$this->attributes['hashed_password']) {
+        if (!$this->attributes['hashed_password']) {
             $this->errors[] = 'Password is required';
         }
 

@@ -62,7 +62,7 @@ class Response
      */
     public function serve()
     {
-        foreach($this->headers as $headerName => $value) {
+        foreach ($this->headers as $headerName => $value) {
             header($headerName . ': ' . $value);
         }
         http_response_code($this->statusCode);

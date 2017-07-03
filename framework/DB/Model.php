@@ -40,7 +40,7 @@ abstract class Model implements ModelInterface
 
     /**
      * Get a single attribute of this model.
-     * 
+     *
      * Dynamic getter functions can also be used. so the 2 following calls are equal
      *
      *   $model->getAttribute('first_name')
@@ -63,7 +63,7 @@ abstract class Model implements ModelInterface
      */
     public function fill(array $unsafeAttributes)
     {
-        $safeAttributes = array_filter($unsafeAttributes, function($key) {
+        $safeAttributes = array_filter($unsafeAttributes, function ($key) {
             return in_array($key, $this->fillable);
         }, ARRAY_FILTER_USE_KEY);
 
@@ -105,7 +105,7 @@ abstract class Model implements ModelInterface
             $camelCaseAttribute = substr($method, 3);
 
             $attribute = strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $camelCaseAttribute));
-            if(array_key_exists($attribute, $this->attributes)) {
+            if (array_key_exists($attribute, $this->attributes)) {
                 return $this->attributes[$attribute];
             }
         }
