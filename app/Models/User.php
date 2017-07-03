@@ -3,9 +3,12 @@ namespace App;
 
 use JsonSerializable;
 use Framework\DB\Model;
+use Framework\Traits\Model\ValidatableTrait;
 
 class User extends Model implements JsonSerializable
 {
+    use ValidatableTrait;
+
     /**
      * Default attributes for a new User
      */
@@ -24,12 +27,6 @@ class User extends Model implements JsonSerializable
         'last_name',
         'email',
     ];
-
-    /**
-     * The errors are populated when calling isValid and contains a simple array
-     * of error messages.
-     */
-    protected $errors = [];
 
     /**
      * Populate the models attributes. Special handing for the password
@@ -68,15 +65,6 @@ class User extends Model implements JsonSerializable
         }
 
         return empty($this->errors);
-    }
-
-    /**
-     * If isValid() return false, then the errors returned by this function can
-     * be used to explan what the issues are.
-     */
-    public function getErrors() : array
-    {
-        return $this->errors;
     }
 
     /**
