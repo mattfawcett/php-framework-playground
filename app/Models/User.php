@@ -31,6 +31,9 @@ class User extends Model implements JsonSerializable
     /**
      * Populate the models attributes. Special handing for the password
      * attribute, which is converted to a hashed_password for persistance.
+     *
+     * @param array $attribute An array of attributes which should be filled
+     * @return void
      */
     public function fill(array $attributes)
     {
@@ -40,6 +43,11 @@ class User extends Model implements JsonSerializable
         }
     }
 
+    /**
+     * Is the current representation of this User model valid
+     *
+     * @return bool
+     */
     public function isValid() : bool
     {
         $this->errors = [];
@@ -70,6 +78,7 @@ class User extends Model implements JsonSerializable
     /**
      * Get an array representation of the model that can be used for serializing
      * to json. Should leave out any internal data.
+     *
      * @return array
      */
     public function jsonSerialize()

@@ -1,6 +1,11 @@
 <?php
 namespace Framework\Traits\Model;
 
+/**
+ * Use this trait in one of your models to enable validation on it. Once in use,
+ * you should implement your own isValid() function which should update the
+ * $errors array and return true or false.
+ */
 trait ValidatableTrait
 {
     /**
